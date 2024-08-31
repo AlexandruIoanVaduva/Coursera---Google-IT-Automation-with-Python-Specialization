@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+import glob
+import os
+from PIL import Image, ImageOps
+
+def to_do(source_path, dest_path):
+    with Image.open(source_path) as im:
+        # rotate
+        im.rotate(-90)
+        # tiff has transparency so we need to remove it
+        if im.mode != "RGB":
+          im = im.convert("RGB")
+        size = (128,128)
+        # change the image type to jpeg
+        ImageOps.contain(im, size).save(dest_path, "JPEG")
+
+# variable for all the files in the image folder
+paths = glob.glob("images/*")
+
+# we run the script
+for path in paths:
+    to_do(path, "opt/icons/" + path[7:])
