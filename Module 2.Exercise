@@ -1,0 +1,28 @@
+#! /usr/bin/env python3
+
+import os
+import requests
+
+# we get the text files
+file_list = [f for f in os.listdir("data/feedback") if ".txt" in f]
+
+# create empty dictionary
+dict = {"title":[],"name":[],"date":[],"feedback":[]}
+
+# for each text file we try to to post the information
+for y in file_list:
+    with open("data/feedback/" + y) as x:
+        lines = [line.rstrip('\n') for line in x]
+    dict["title"]=lines[0]
+    dict["name"]=lines[1]
+    dict["date"]=lines[2]
+    dict["feedback"]=lines[3]
+    print(dict)
+    try:
+        response = requests.post("http://link/feedback/?format=api", data=dict)
+        response.request.url
+        response.request.body
+        print(response.request.body)
+        print(response.status_code)
+    except:
+        print("error")
