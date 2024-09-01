@@ -17,6 +17,7 @@ def load_data(filename):
 def format_car(car):
   """Given a car dictionary, returns a nicely formatted name."""
   return "{} {} ({})".format(car["car_make"], car["car_model"], car["car_year"])
+
 def process_data(data):
   """Analyzes the data, looking for maximums.
 
