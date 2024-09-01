@@ -6,6 +6,7 @@ import emails
 from reports import generate_report
 from emails import send_email, generate_email
 
+# create new dict based on the contents of the txt files
 file_list = [f for f in os.listdir("supplier-data/descriptions") if ".txt" in f]
 dict = {"name": [], "weight": []}
 
@@ -15,25 +16,32 @@ for y in file_list:
     dict["name"].append(lines[0])
     dict["weight"].append(lines[1])
 
+# create new list 
 fruits = []
 
 for i in range(len(dict['weight'])):
     fruit = f"name: {dict['name'][i]}\nweight: {dict['weight'][i]}\n"
     fruits.append(fruit)
 
+# make it a string
 text = "\n".join(fruits)
 
 def main(argv):
     file_path = "/tmp/processed.pdf"
     today = datetime.date.today()
     title = "Processed Update on " + today.strftime("%B %d, %Y")
+    
+    # the next replace is needed to add new empty lines in the pdf (reportlab req)
     paragraph = text.replace('\n', '<br />\n')
+    
     reports.generate_report(file_path, title, paragraph)
     sender = "automation@example.com"
     recipient = "student@example.com"
     subject = "Upload Completed - Online Fruit Store"
     body = "All fruits are uploaded to our website successfully. A detailed list is attached to this email."
+    
     message = emails.generate_email(sender, recipient, subject, body, file_path)
+    
     emails.send_email(message)
 
 if __name__ == "__main__":
