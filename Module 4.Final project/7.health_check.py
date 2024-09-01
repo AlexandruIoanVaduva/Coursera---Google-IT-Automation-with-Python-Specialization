@@ -5,16 +5,10 @@ import socket
 import emails
 from emails import send_email, generate_email
 
+subject_line = {"Case": ['CPU usage is over 80%', 'Available disk space is lower than 20%','available memory is less than 100MB','hostname "localhost" cannot be resolved to "127.0.0.1"'],"Subject line":["Error - CPU usage is over 80%", "Error - Available disk space is less than 20%","Error - Available memory is less than 100MB","Error - localhost cannot be resolved to 127.0.0.1"]}
 
-subject_line = {"Case": ['CPU usage is over 80%', 'Available disk space is lower than 20%',
-                         'available memory is less than 100MB',
-                         'hostname "localhost" cannot be resolved to "127.0.0.1"'],
-                "Subject line":["Error - CPU usage is over 80%", "Error - Available disk space is less than 20%",
-                                "Error - Available memory is less than 100MB",
-                                "Error - localhost cannot be resolved to 127.0.0.1"]}
-
-print(subject_line["Case"])  # Output: CPU usage is over 80%
-print(subject_line["Subject line"])
+# print(subject_line["Case"]) 
+# print(subject_line["Subject line"])
 
 if psutil.cpu_percent() >= 80:
     subject = (subject_line["Subject line"][0])
