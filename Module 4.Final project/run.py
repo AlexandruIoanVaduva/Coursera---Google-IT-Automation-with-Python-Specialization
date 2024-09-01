@@ -15,7 +15,7 @@ for y in file_list:
     dict["description"] = lines[2]
     dict["image_name"] = y[:-3] + "jpeg"
     try:
-        response = requests.post("http://link/fruits/", data=dict)
+        response = requests.post("http://your_link_data/fruits/", data=dict)
         response.request.url
         response.request.body
         print(response.status_code)
